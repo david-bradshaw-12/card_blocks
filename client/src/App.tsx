@@ -10,6 +10,7 @@ function App() {
       <header className="App-header">
         <img src={logoRiseCom} className="App-logo" alt="logo" />
         <h1>Rise Tech Challenge</h1>
+        <h2>You can do it, David!</h2>
         <img src={logoRise360} className="App-logo" alt="logo" />
       </header>
       <section className="App-section">
