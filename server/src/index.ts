@@ -9,11 +9,19 @@ const getKnowledgeCheckBlocks = async (req: Request, res: Response) => {
   res.send(knowledgeCheckBlocks)
 }
 
+const getQuestions = async (req: Request, res: Response) => {
+  const questions = await knex('questions')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.send(questions)
+}
+
 const app = express()
 const port = 5001
 
 app.use(morgan('dev'))
 
 app.get('/knowledge-check-blocks', getKnowledgeCheckBlocks)
+
+app.get('/questions', getQuestions)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
