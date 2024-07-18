@@ -16,10 +16,10 @@ function App() {
       </header>
       <section className="App-section">
         {"Please populate this view with your implementation of the knowledge check block using the API available at "}
-        <LearningBlock />
         <span className="App-code">
           {"/knowledge-check-blocks"}
         </span>
+        <LearningBlock />
       </section>
     </div>
   )
