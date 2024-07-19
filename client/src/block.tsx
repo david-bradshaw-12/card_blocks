@@ -11,6 +11,7 @@ const LearningBlock: any = () => {
   const [questions, setQuestions] = useState<QuestionsObj[] | null>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [answers, setAnswers] = useState([]);
+  const [mediaURL, setMediaURL] = useState<string>('')
   const [loading, setLoading] = useState(true);
   const [questionsError, setQuestionsError]: any = useState(null);
   const [mediaError, setMediaError]: any = useState(null);
@@ -31,16 +32,18 @@ const LearningBlock: any = () => {
     };
     const fetchAnswers = async () => {
       try {
-          const { data } = await axios.get(`localhost:5001/answers/`);
+          const { data } = await axios.get(`localhost:5001/answers`);
       } catch (err) {
         setAnswersError(err);
         setLoading(false);
       }
     };
     const fetchMedia = async () => {
-        if (questions) {
+        if (questions?.length != 0) {
             try {
-                const { data } = await axios.get(`localhost:5001/media/${questions[currentQuestion].mediaId}`);
+                const mediaURL = questions?.find((q, index) => index === currentQuestion)?.mediaId
+                const { data } = await axios.get(`localhost:5001/media/${mediaURL}`);
+                setMediaURL(data.url);
             } catch (err) {
                 setMediaError(err);
                 setLoading(false);
@@ -57,8 +60,14 @@ const LearningBlock: any = () => {
     // call /knowledge-check-blocks and display text
     return (
         <form>
-            <button onSubmit={() => {}}>Submit Answer</button>
+            <button onClick={(e) => {e.preventDefault()}}>Submit Answer</button>
         </form>
+    )
+  };
+
+  const renderMedia = () => {
+    return (
+        <img src={mediaURL} alt='Bruh, sorry. Couldnt find media, just pretend you see coffee and cookies'></img>
     )
   }
 
@@ -69,10 +78,13 @@ const LearningBlock: any = () => {
     <div>
       <h1>Questions</h1>
       <ul>
-        {questions ? questions.map((question) => (
-          <li key={question.id}>{question.text}</li>
-        )) : null}
+        {questions ? 
+          <li key={questions[currentQuestion].id}>{questions[currentQuestion].text}</li>
+         : null}
       </ul>
+      <div>
+        {mediaURL ? renderMedia() : <div>Media is loading... probably</div>}
+      </div>
       <div>
         <SubmitButton />
       </div>
