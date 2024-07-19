@@ -30,6 +30,7 @@ const LearningBlock: any = () => {
   const [mediaError, setMediaError]: any = useState(null);
   const [answersError, setAnswersError] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [submitSelected, setSubmitSelected] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -78,10 +79,24 @@ const LearningBlock: any = () => {
 
   const SubmitButton = () => {
     // call /knowledge-check-blocks and display text
+    const submitClicked = async (event: any) => {
+        event.preventDefault();
+        // send selectedAnswer through API call, back-end match knowledge-check-block, sends back appropriate response.
+        await axios.get('http://localhost:5001/knowledge-check-blocks')
+            .then((res) =>{
+                const displayText = res.data[0].feedback
+                alert(displayText)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }
     return (
-        <form>
-            <button onClick={(e) => {e.preventDefault()}}>Submit Answer</button>
-        </form>
+        <div className='submitButton'>
+            <form>
+                <button onClick={(e) => {submitClicked(e)}}>Submit</button>
+            </form>
+        </div>
     )
   };
 
@@ -99,33 +114,32 @@ const LearningBlock: any = () => {
 
   if (loading) return <div>Loading...</div>;
   if (questionsError) return <div>Error fetching questions:</div>;
+//   if (submitSelected) {
+//     return (
+//        <div></div>
+//     )
+//   }
+
 
   return (
     <div>
-      <h1>Questions</h1>
-
         {currentWholeQuestion ? 
-          <h3>{currentWholeQuestion.text}</h3>
+          <div className='topQuestion'>{currentWholeQuestion.text}</div>
          : null}
-
-      <div>
-        {mediaURL ? renderMedia() : <div>Media is loading... probably</div>}
+      <div className='media'>
+        {mediaURL ? renderMedia() : <div>Media is loading... </div>}
       </div>
       <div>
-        <ul>
             {answers ? answers.map((answer) => {
                 if (selectedAnswer === answer.pos) {
-                    return <li id={answer.id} className='selectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</li>
+                    return <div aria-checked={true} aria-disabled={false} role="radio" id={answer.id} className='selectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</div>
                 }
                 return (
-                    <li id={answer.id} className='unselectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</li>
+                    <div aria-checked={false} aria-disabled={false} role="radio" id={answer.id} className='unSelectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</div>
                 )
             }) : null}
-        </ul>
       </div>
-      <div>
-        <SubmitButton />
-      </div>
+    <SubmitButton />
     </div>
   );
 };

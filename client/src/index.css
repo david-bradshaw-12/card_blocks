@@ -9,3 +9,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.topQuestion {
+
+}
+
+.media {
+
+}
+
+.selectedAnswer {
+  padding: 3rem 5rem;
+}
+
+.unSelectedAnswer {
+  padding: 3rem 5rem;
+}
+
+.submitButton {
+
+}

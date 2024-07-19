@@ -14,9 +14,11 @@ function App() {
         <img src={logoRise360} className="App-logo" alt="logo" />
       </header>
       <section className="App-section">
+        <h2>
         <span className="App-code">
-          {"/knowledge-check-blocks"}
+          {"Knowledge Check Block"}
         </span>
+        </h2>
         <LearningBlock />
       </section>
     </div>

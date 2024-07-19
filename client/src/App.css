@@ -2,6 +2,21 @@
   height: 4rem;
   margin: 0 1rem;
 }
+* {
+  --color-theme-contrast-complementary-rgb: 0, 0, 0;
+    --color-theme-contrast-complementary: #000;
+    --color-theme-contrast-rgb: 255, 255, 255;
+    --color-theme-contrast: #fff;
+    --color-theme-rgb: 116, 122, 126;
+    --color-theme-tint: #f1f2f2;
+    --color-theme-transparent: #747a7e1A;
+    --color-theme: #747a7e;
+    --font-family-body: Merriweather;
+    --font-family-head: Lato;
+    --font-family-ui: Lato;
+    --mon-theme-font-body: var(--font-family-body);
+    --mon-theme-font-heading: var(--font-family-head);
+}
 
 .App-header {
   position: relative;
@@ -19,8 +34,11 @@
 }
 
 .App-code {
+  font-weight: 700;
+  line-height: 1.25;
+  padding: .8rem 0;
   background-color: #ddd;
   border-radius: 0.2rem;
   padding: 0 0.3rem;
-  color: #8b0000;
+  /* color: #8b0000; */
 }
