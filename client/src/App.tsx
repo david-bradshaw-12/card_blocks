@@ -11,11 +11,9 @@ function App() {
       <header className="App-header">
         <img src={logoRiseCom} className="App-logo" alt="logo" />
         <h1>Rise Tech Challenge</h1>
-        <h2>You can do it, David!</h2>
         <img src={logoRise360} className="App-logo" alt="logo" />
       </header>
       <section className="App-section">
-        {"Please populate this view with your implementation of the knowledge check block using the API available at "}
         <span className="App-code">
           {"/knowledge-check-blocks"}
         </span>
