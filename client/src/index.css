@@ -27,5 +27,28 @@ body {
 }
 
 .submitButton {
-
+  align-items: center;
+  /* background-color: var(--color-theme); */
+  background-color: var(--color-submit-button-background, var(--color-theme));
+  border: var(--border-submit-button, 1px solid var(--color-theme));
+  border-radius: 2rem;
+  box-sizing: border-box;
+  /* color: #fff;
+  color: var(--color-button-text, #fff); */
+  display: inline-flex;
+  font-size: 1.2rem;
+  font-weight: 700;
+  height: 4rem;
+  justify-content: center;
+  letter-spacing: .04em;
+  max-width: 17rem;
+  min-width: 10rem;
+  outline-offset: .2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  transition: background .3s, border-color .3s, color .3s;
+  width: 100%;
 }

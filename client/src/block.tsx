@@ -30,7 +30,7 @@ const LearningBlock: any = () => {
   const [mediaError, setMediaError]: any = useState(null);
   const [answersError, setAnswersError] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [submitSelected, setSubmitSelected] = useState<boolean>(false);
+//   const [submitSelected, setSubmitSelected] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -82,6 +82,7 @@ const LearningBlock: any = () => {
     const submitClicked = async (event: any) => {
         event.preventDefault();
         // send selectedAnswer through API call, back-end match knowledge-check-block, sends back appropriate response.
+        // check that question IDs match
         await axios.get('http://localhost:5001/knowledge-check-blocks')
             .then((res) =>{
                 const displayText = res.data[0].feedback
@@ -93,9 +94,9 @@ const LearningBlock: any = () => {
     }
     return (
         <div className='submitButton'>
-            <form>
+
                 <button onClick={(e) => {submitClicked(e)}}>Submit</button>
-            </form>
+
         </div>
     )
   };
@@ -113,7 +114,7 @@ const LearningBlock: any = () => {
 }
 
   if (loading) return <div>Loading...</div>;
-  if (questionsError) return <div>Error fetching questions:</div>;
+  if (questionsError || answersError || mediaError) return <div>Error fetching questions:</div>;
 //   if (submitSelected) {
 //     return (
 //        <div></div>
@@ -132,10 +133,18 @@ const LearningBlock: any = () => {
       <div>
             {answers ? answers.map((answer) => {
                 if (selectedAnswer === answer.pos) {
-                    return <div aria-checked={true} aria-disabled={false} role="radio" id={answer.id} className='selectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</div>
+                    return (
+                        <div  aria-checked={true} aria-disabled={false} className='selectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
+                            <input type="radio" value=''></input>
+                            {answer.text}
+                        </div>
+                    )
                 }
                 return (
-                    <div aria-checked={false} aria-disabled={false} role="radio" id={answer.id} className='unSelectedAnswer' onClick={() => clickedAnswer(answer)}>{answer.text}</div>
+                    <div  aria-checked={false} aria-disabled={false} className='unSelectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
+                        <input type="radio"></input>
+                        {answer.text}
+                    </div>
                 )
             }) : null}
       </div>
