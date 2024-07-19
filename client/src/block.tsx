@@ -135,14 +135,14 @@ const LearningBlock: any = () => {
                 if (selectedAnswer === answer.pos) {
                     return (
                         <div  aria-checked={true} aria-disabled={false} className='selectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
-                            <input type="radio" value=''></input>
+                            <input checked={true} type="radio" value=''></input>
                             {answer.text}
                         </div>
                     )
                 }
                 return (
                     <div  aria-checked={false} aria-disabled={false} className='unSelectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
-                        <input type="radio"></input>
+                        <input checked={false} type="radio"></input>
                         {answer.text}
                     </div>
                 )
