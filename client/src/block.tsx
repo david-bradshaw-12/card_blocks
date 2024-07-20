@@ -29,8 +29,9 @@ const LearningBlock: any = () => {
   const [questionsError, setQuestionsError]: any = useState(null);
   const [mediaError, setMediaError]: any = useState(null);
   const [answersError, setAnswersError] = useState(null);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<AnswersObj | null>(null);
 //   const [submitSelected, setSubmitSelected] = useState<boolean>(false);
+  const [knowledgeCheck, setKnowledgeCheck] = useState<string | null>('')
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -80,25 +81,47 @@ const LearningBlock: any = () => {
   const SubmitButton = () => {
     // call /knowledge-check-blocks and display text
     const submitClicked = async (event: any) => {
-        event.preventDefault();
+        event.preventDefault(); 
+        const isAnswerCorrect = selectedAnswer?.isCorrect
         // send selectedAnswer through API call, back-end match knowledge-check-block, sends back appropriate response.
-        // check that question IDs match
+        // check that question IDs match ///  isCorrect
         await axios.get('http://localhost:5001/knowledge-check-blocks')
             .then((res) =>{
-                const displayText = res.data[0].feedback
-                alert(displayText)
+                if (isAnswerCorrect) {
+                    const displayText = res.data[0].feedback
+                    setKnowledgeCheck(displayText)
+                } else {
+                    setKnowledgeCheck('You got it wrong, bro!')
+                }
+                // alert(displayText)
             })
             .catch((err) => {
                 console.error(err)
             })
     }
     return (
-        <div className='submitButton'>
-
-                <button onClick={(e) => {submitClicked(e)}}>Submit</button>
-
+        <div>
+            <button className='submitButton' onClick={(e) => {submitClicked(e)}}>Submit</button>
         </div>
     )
+  };
+
+  const KnowledgeCheckSection = () => {
+    const retakeQuestion = () => {
+        setKnowledgeCheck('');
+        setSelectedAnswer(null);
+    };
+    if (knowledgeCheck) {
+
+    return (
+        <div>
+            <div>{knowledgeCheck} </div>
+            <button onClick={retakeQuestion}>retake</button>
+        </div>
+    )
+    } else {
+        return null
+    }
   };
 
   const renderMedia = () => {
@@ -110,7 +133,7 @@ const LearningBlock: any = () => {
   const currentWholeQuestion: any = questions?.find((q, index) => index === currentQuestion);
 
   const clickedAnswer = (answer: AnswersObj) => {
-    setSelectedAnswer(answer.pos);
+    setSelectedAnswer(answer);
 }
 
   if (loading) return <div>Loading...</div>;
@@ -128,27 +151,30 @@ const LearningBlock: any = () => {
           <div className='topQuestion'>{currentWholeQuestion.text}</div>
          : null}
       <div className='media'>
-        {mediaURL ? renderMedia() : <div>Media is loading... </div>}
+        {mediaURL ? renderMedia() : <div>Media is loading... (put spinner *here*) </div>}
       </div>
       <div>
             {answers ? answers.map((answer) => {
-                if (selectedAnswer === answer.pos) {
+                if (selectedAnswer?.pos === answer.pos) {
                     return (
                         <div  aria-checked={true} aria-disabled={false} className='selectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
-                            <input checked={true} type="radio" value=''></input>
+                            <input checked={true} type="radio" />
                             {answer.text}
                         </div>
                     )
                 }
                 return (
                     <div  aria-checked={false} aria-disabled={false} className='unSelectedAnswer' id={answer.id} onClick={() => clickedAnswer(answer)}>
-                        <input checked={false} type="radio"></input>
+                        <input checked={false} type="radio" />
                         {answer.text}
                     </div>
                 )
             }) : null}
       </div>
     <SubmitButton />
+    <div>
+        <KnowledgeCheckSection />
+    </div>
     </div>
   );
 };
