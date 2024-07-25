@@ -115,10 +115,11 @@ const LearningBlock: any = () => {
     return (
         <div className='bottomAnswer'>
             <div>{knowledgeCheck} </div>
-            <button onClick={retakeQuestion}>
-            <i className="fa fa-refresh" aria-hidden="true"></i>
-            retake
-            </button>
+
+            <span onClick={retakeQuestion} className='reload'>&#x21bb;</span>
+            {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> */}
+                {/* <i className="fa fa-refresh" aria-hidden="true"></i> */}
+
         </div>
     )
     } else {
