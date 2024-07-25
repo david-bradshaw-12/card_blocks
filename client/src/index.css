@@ -26,6 +26,11 @@ body {
   padding: 3rem 5rem;
 }
 
+.unSelectedAnswer:hover {
+  padding: 3rem 5rem;
+  background-color:  rgba(231, 241, 243, 0.76);
+}
+
 .submitButton {
   align-items: center;
   background-color: var(--color-theme);
@@ -56,4 +61,15 @@ body {
 .submitButton:hover {
   background-color: #aab2b8;
   
+}
+
+.bottomAnswer {
+  display: block;
+  --color-background: var(--color-background-feedback-frame,#f8f8f8);
+  background-color: var(--color-background);
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  padding-bottom: 1.5rem;
+  padding-top: 3rem;
+  transition: opacity .6s .6s, transform .6s .6s;
 }

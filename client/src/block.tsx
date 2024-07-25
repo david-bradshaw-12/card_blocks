@@ -25,10 +25,8 @@ const LearningBlock: any = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [answers, setAnswers] = useState<AnswersObj[] | []>([]);
   const [mediaURL, setMediaURL] = useState<string>('')
-  const [loading, setLoading] = useState(true);
-  const [questionsError, setQuestionsError]: any = useState(null);
-  const [mediaError, setMediaError]: any = useState(null);
-  const [answersError, setAnswersError] = useState(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [fetchError, setFetchError] = useState<boolean>(false);
   const [selectedAnswer, setSelectedAnswer] = useState<AnswersObj | null>(null);
 //   const [submitSelected, setSubmitSelected] = useState<boolean>(false);
   const [knowledgeCheck, setKnowledgeCheck] = useState<string | null>('')
@@ -41,7 +39,7 @@ const LearningBlock: any = () => {
             setLoading(false);
         }).catch((errrror) => {
             console.log('errrrroorrrrrr', errrror)
-            setQuestionsError(errrror);
+            setFetchError(true);
             setLoading(false);
         });
     };
@@ -51,7 +49,7 @@ const LearningBlock: any = () => {
             setAnswers(res.data)
         })
         .catch((error) => {
-            setAnswersError(error);
+            setFetchError(error);
             setLoading(false);
         })
     };
@@ -63,7 +61,7 @@ const LearningBlock: any = () => {
                 setMediaURL(mediaBlock.url);
             })
             .catch((error) => {
-                setMediaError(error);
+                setFetchError(error);
                 setLoading(false);
             })
     };
@@ -96,7 +94,8 @@ const LearningBlock: any = () => {
                 // alert(displayText)
             })
             .catch((err) => {
-                console.error(err)
+                console.error(err);
+                setFetchError(true);
             })
     }
     return (
@@ -114,9 +113,12 @@ const LearningBlock: any = () => {
     if (knowledgeCheck) {
 
     return (
-        <div>
+        <div className='bottomAnswer'>
             <div>{knowledgeCheck} </div>
-            <button onClick={retakeQuestion}>retake</button>
+            <button onClick={retakeQuestion}>
+            <i className="fa fa-refresh" aria-hidden="true"></i>
+            retake
+            </button>
         </div>
     )
     } else {
@@ -137,12 +139,7 @@ const LearningBlock: any = () => {
 }
 
   if (loading) return <div>Loading...</div>;
-  if (questionsError || answersError || mediaError) return <div>Error fetching questions:</div>;
-//   if (submitSelected) {
-//     return (
-//        <div></div>
-//     )
-//   }
+  if (fetchError) return <div>Error fetching questions:</div>;
 
 
   return (
