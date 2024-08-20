@@ -1,35 +1,13 @@
-# Welcome to the Rise Developer Challenge!
 
-## Part 1: The Coding Challenge
+#### card blocks
 
-Rise allows customers to create responsive single page, vertically scrolling lessons which include a variety of modular elements called Blocks. These Blocks can be as simple as text and image layouts, videos, image galleries, to more complex components like interactive flash cards, tabbed modules and accordions.
 
-Your goal is to implement one of Rise's interactive blocks (see [this Rise lesson](https://rise.articulate.com/share/YaZWnWdc2El8-M-4gcZ9eQD0lB9iRXDn#/lessons/lZ0qX7FvbGICXnk-30conqfR_JAFagbh) for an example).
-
-At a minimum, your implementation should:
-- [ ] Decorate the knowledge block returned from [`getKnowledgeCheckBlocks`](/server/src/index.ts) with `questions`, `answers`, and `media` from the Postgress Database.
-- [ ] Populate your interactive block's configuration from the provided REST API (see [`/server`](/server/src/))
-- [ ] Use `react` and TypeScript to create a UI that replicates [the knowledge check block from this sample lesson](https://rise.articulate.com/share/YaZWnWdc2El8-M-4gcZ9eQD0lB9iRXDn#/lessons/lZ0qX7FvbGICXnk-30conqfR_JAFagbh)
-  - You must use React for your UI components
-- [ ] Please stick to the visual styles we have in place. It's important that you implement the feature in full, so pay close attention to the details including how your block behaves across screen sizes. Responsiveness is a core component of Rise.
-- [ ] In addition to implementing the knowledge check block, your solution must also maintain its visual state across page refreshes. I.e., if you interact with your block and then refresh the page, the UI state of your interactive block should be the same. Extend the provided REST API to achieve this
-  - Your interactive block's UI state must be persisted via the REST API (no storing it in localStorage, cookies, etc.)
-- [ ] Once completed, push your solution to the Github classroom for us to review. If additional setup steps beyond the ones provided are required, please include them in your submission.
-
-What you choose to implement from there is up to you. :)
-
-### Implementation notes
-
-- You only need to implement the box under the "Knowledge Check Block" heading with the image, choices, and feedback; don't worry about implementing the sidebar or lesson header.
+### Implementation note
 - Your interactive block implementation should live in the [`/client`](/client) directory, an app skeleton has been provided in the directory
 - The beginnings of a REST API lives in [`/server`](/server/src/) and is reachable at http://localhost:5001
-  - The REST API currently only returns the parent `knowledgeCheckBlock` with no questions, answers, or media tied to it.
 
 ### Getting started
 
-The challenge should take between 3 and 5 hours depending on experience level and we prefer you not devote more time than that. Instead, we ask that you either self-review your PR or share notes in the "Candidate Notes" section below about features or other details that were omitted due to time constraints. This will give our team the opportunity to see how you prioritize you work and should limit the time commitment required.
-
-Lastly, a "Feedback" pull request is automatically created by GitHub Classroom; please commit your work to the `master` branch and **do not merge** the pull request. When you are satisfied with your solution, share the link to the Feedback pull request with the recruiter. Reviewers will be able to review the diff in the pull request in GitHub. 
 
 #### Install Docker
 
@@ -64,9 +42,6 @@ If you install any new packages or add a new database migration file you'll want
 1. `docker-compose down`
 1. `docker-compose up --build`
 
-## Part 2: Discuss with Team
-
-You will discuss your code and explain your decisions to a small group of developers and stakeholders at Articulate. The format is modeled after the way we conduct pairing sessions and is meant to give you a glimpse into the way we work. We are SUPER friendly and it will be a fun conversation.
 
 # Candidate Notes
 
